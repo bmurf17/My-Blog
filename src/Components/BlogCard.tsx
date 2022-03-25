@@ -1,7 +1,6 @@
 import {
   Text,
   Card,
-  Grid,
   Image,
   Group,
   Badge,

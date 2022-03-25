@@ -1,21 +1,18 @@
 import { HomePage } from "./Components/HomePage";
-import { AppShell, Navbar, Header, ScrollArea } from "@mantine/core";
+import { AppShell } from "@mantine/core";
+import { NavBar } from "./Components/NavBar";
+import { TopBar } from "./Components/TopBar";
+import { useState } from "react";
 
 function App() {
+  const [opened, setOpened] = useState(false);
+
   return (
     <>
       <AppShell
         padding="md"
-        navbar={
-          <Navbar width={{ base: 300 }} p="xs">
-            <p>Options Here</p>
-          </Navbar>
-        }
-        header={
-          <Header height={60} p="xs">
-            Title and some login info
-          </Header>
-        }
+        navbar={<NavBar opened={opened} setOpened={setOpened} />}
+        header={<TopBar opened={opened} setOpened={setOpened} />}
         fixed={true}
         styles={(theme) => ({
           main: {

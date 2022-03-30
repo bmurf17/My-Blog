@@ -6,6 +6,7 @@ import {
   Badge,
   useMantineTheme,
 } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export function BlogCard() {
   const theme = useMantineTheme();
@@ -14,7 +15,7 @@ export function BlogCard() {
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
 
   return (
-    <Card shadow="sm" p="lg">
+    <Card<typeof Link> component={Link} to="/lists" shadow="sm" p="lg">
       <Card.Section>
         <Image
           src="https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png"

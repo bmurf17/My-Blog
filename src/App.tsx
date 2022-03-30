@@ -13,37 +13,39 @@ function App() {
 
   return (
     <>
-      <AppShell
-        padding="md"
-        navbar={<NavBar opened={opened} setOpened={setOpened} />}
-        header={<TopBar opened={opened} setOpened={setOpened} />}
-        fixed={true}
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}
-      >
-        {
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-            </Routes>
-            <Routes>
-              <Route path="/create" element={<CreatePost />} />
-            </Routes>
-            <Routes>
-              <Route path="/friends" element={<Friends />} />
-            </Routes>
-            <Routes>
-              <Route path="/lists" element={<ViewLists />} />
-            </Routes>
-          </BrowserRouter>
-        }
-      </AppShell>
+      <BrowserRouter>
+        <AppShell
+          padding="md"
+          navbar={<NavBar opened={opened} setOpened={setOpened} />}
+          header={<TopBar opened={opened} setOpened={setOpened} />}
+          fixed={true}
+          styles={(theme) => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}
+        >
+          {
+            <>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+              </Routes>
+              <Routes>
+                <Route path="/create" element={<CreatePost />} />
+              </Routes>
+              <Routes>
+                <Route path="/friends" element={<Friends />} />
+              </Routes>
+              <Routes>
+                <Route path="/lists" element={<ViewLists />} />
+              </Routes>
+            </>
+          }
+        </AppShell>
+      </BrowserRouter>
     </>
   );
 }

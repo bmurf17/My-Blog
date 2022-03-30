@@ -33,13 +33,7 @@ export function TopBar(props: Props) {
         </MediaQuery>
 
         <Group>
-          <Avatar
-            component="a"
-            href="https://github.com/rtivital"
-            target="_blank"
-            src="avatar.png"
-            alt="it's me"
-          />
+          <Avatar component="a" src="avatar.png" alt="it's me" />
           <Text weight={700}>Bold</Text>
         </Group>
       </div>

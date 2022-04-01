@@ -5,8 +5,8 @@ import { TopBar } from "./Components/Page Layout/TopBar";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CreatePost } from "./Components/Create Post/CreatePost";
-import { Friends } from "./Components/Friends/Friends";
 import { ViewLists } from "./Components/Lists/ViewLists";
+import { FollowingPage } from "./Components/Following/FollowingPage";
 
 function App() {
   const [opened, setOpened] = useState(false);
@@ -37,7 +37,7 @@ function App() {
                 <Route path="/create" element={<CreatePost />} />
               </Routes>
               <Routes>
-                <Route path="/friends" element={<Friends />} />
+                <Route path="/friends" element={<FollowingPage />} />
               </Routes>
               <Routes>
                 <Route path="/lists" element={<ViewLists />} />

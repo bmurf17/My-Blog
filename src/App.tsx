@@ -5,7 +5,7 @@ import { TopBar } from "./Components/Page Layout/TopBar";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CreatePost } from "./Components/Create Post/CreatePost";
-import { ViewLists } from "./Components/Lists/ViewLists";
+import { ListsPage } from "./Components/Lists/ListsPage";
 import { FollowingPage } from "./Components/Following/FollowingPage";
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
                 <Route path="/friends" element={<FollowingPage />} />
               </Routes>
               <Routes>
-                <Route path="/lists" element={<ViewLists />} />
+                <Route path="/lists" element={<ListsPage />} />
               </Routes>
             </>
           }

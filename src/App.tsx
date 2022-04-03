@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CreatePost } from "./Components/Create Post/CreatePost";
 import { ListsPage } from "./Components/Lists/ListsPage";
 import { FollowingPage } from "./Components/Following/FollowingPage";
+import { UserPage } from "./Components/User Page/UserPage";
 
 function App() {
   const [opened, setOpened] = useState(false);
@@ -32,15 +33,10 @@ function App() {
             <>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-              </Routes>
-              <Routes>
                 <Route path="/create" element={<CreatePost />} />
-              </Routes>
-              <Routes>
                 <Route path="/friends" element={<FollowingPage />} />
-              </Routes>
-              <Routes>
                 <Route path="/lists" element={<ListsPage />} />
+                <Route path="/user" element={<UserPage />} />
               </Routes>
             </>
           }

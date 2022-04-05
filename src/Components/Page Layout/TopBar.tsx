@@ -21,24 +21,35 @@ export function TopBar(props: Props) {
   return (
     <Header height={70} p="md">
       {/* Handle other responsive styles with MediaQuery component or createStyles function */}
-      <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-          <Burger
-            opened={opened}
-            onClick={() => setOpened((o: any) => !o)}
-            size="sm"
-            color={theme.colors.gray[6]}
-            mr="xl"
-          />
-        </MediaQuery>
+      <div style={{ height: "100%" }}>
+        <Group position="apart">
+          <Group>
+            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o: any) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
 
-        <Group>
-          <Avatar
-            component="a"
-            src="https://www.elegantthemes.com/blog/wp-content/uploads/2019/03/000-Pixel-Art-Maker.png"
-            alt="it's me"
-          />
-          <Text weight={700}>Brendans Bold Blog</Text>
+            <Avatar
+              component="a"
+              src="https://www.elegantthemes.com/blog/wp-content/uploads/2019/03/000-Pixel-Art-Maker.png"
+              alt="it's me"
+            />
+
+            <Text weight={700}>Brendans Bold Blog</Text>
+          </Group>
+
+          <Group>
+            <Text weight={700}>Log In</Text>
+
+            <Text align="right" weight={700}>
+              Log Out
+            </Text>
+          </Group>
         </Group>
       </div>
     </Header>

@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 
 export function ListCard() {
   const theme = useMantineTheme();
-
-  const secondaryColor =
-    theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
   return (
     <Card<typeof Link> component={Link} to="/userpage" shadow="sm" p="lg">
       <Card.Section>

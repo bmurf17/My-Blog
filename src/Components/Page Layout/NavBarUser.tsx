@@ -45,7 +45,6 @@ export function NavBarUser() {
           style={{
             textDecoration: "none",
             color: "#2d6886",
-            padding: 12,
           }}
         >
           <Group>

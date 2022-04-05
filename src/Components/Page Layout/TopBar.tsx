@@ -33,8 +33,12 @@ export function TopBar(props: Props) {
         </MediaQuery>
 
         <Group>
-          <Avatar component="a" src="avatar.png" alt="it's me" />
-          <Text weight={700}>Bold</Text>
+          <Avatar
+            component="a"
+            src="https://www.elegantthemes.com/blog/wp-content/uploads/2019/03/000-Pixel-Art-Maker.png"
+            alt="it's me"
+          />
+          <Text weight={700}>Brendans Bold Blog</Text>
         </Group>
       </div>
     </Header>

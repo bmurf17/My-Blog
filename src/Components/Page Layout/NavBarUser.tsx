@@ -40,7 +40,14 @@ export function NavBarUser() {
           },
         }}
       >
-        <Link to={"/user"}>
+        <Link
+          to={"/user"}
+          style={{
+            textDecoration: "none",
+            color: "#2d6886",
+            padding: 12,
+          }}
+        >
           <Group>
             <Avatar
               src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"

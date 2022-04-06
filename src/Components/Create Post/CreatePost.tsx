@@ -19,13 +19,14 @@ const data = [
 export function CreatePost() {
   const [blogContent, setBlogContent] = useState("");
   const [postName, setPostName] = useState("");
+  const [previewName, setPreviewName] = useState("");
+
   const [tags, setTags] = useState<string[]>([]);
 
   const onSubmit = () => {
     console.log("PostName: " + postName);
-
+    console.log("Preview: " + previewName);
     console.log("tags: " + tags);
-
     console.log("blog content: " + blogContent);
   };
 
@@ -43,6 +44,18 @@ export function CreatePost() {
         required
       />
       <Space h="md" />
+
+      <TextInput
+        placeholder="An interesting description"
+        label="Preview"
+        onChange={(e) => {
+          e.preventDefault();
+          setPreviewName(e.target.value);
+        }}
+        required
+      />
+      <Space h="md" />
+
       <MultiSelect
         data={data}
         label="Pick all the tags you would like"

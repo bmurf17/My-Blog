@@ -62,8 +62,6 @@ export function CreatePost() {
         placeholder="Pick all that you like"
         value={tags}
         onChange={(e) => {
-          var temp: string[] = [""];
-          temp = e;
           setTags(e);
         }}
       />

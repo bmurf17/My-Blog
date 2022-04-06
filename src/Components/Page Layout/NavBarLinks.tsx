@@ -2,11 +2,25 @@ import { List, Text } from "@mantine/core";
 import { CirclePlus, Friends, ListSearch, Home } from "tabler-icons-react";
 import { Link } from "react-router-dom";
 
-export function NavBarLinks() {
+interface Props {
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function NavBarLinks(props: Props) {
+  const { setOpened } = props;
+
   return (
     <List spacing="xs" size="sm" center>
       <List.Item icon={<Home size={35} color={"#2d6886"} />}>
-        <Text<typeof Link> component={Link} to="/" color="#2d6886" size="lg">
+        <Text<typeof Link>
+          component={Link}
+          to="/"
+          color="#2d6886"
+          size="lg"
+          onClick={() => {
+            setOpened(false);
+          }}
+        >
           Home
         </Text>
       </List.Item>
@@ -17,6 +31,9 @@ export function NavBarLinks() {
           to="/create"
           color="#2d6886"
           size="lg"
+          onClick={() => {
+            setOpened(false);
+          }}
         >
           Create a Post
         </Text>
@@ -27,6 +44,9 @@ export function NavBarLinks() {
           to="/friends"
           color="#2d6886"
           size="lg"
+          onClick={() => {
+            setOpened(false);
+          }}
         >
           Friends
         </Text>
@@ -40,6 +60,9 @@ export function NavBarLinks() {
           to="/lists"
           color="#2d6886"
           size="lg"
+          onClick={() => {
+            setOpened(false);
+          }}
         >
           View Lists
         </Text>

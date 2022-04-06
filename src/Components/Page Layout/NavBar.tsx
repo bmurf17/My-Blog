@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function NavBar(props: Props) {
-  const { opened } = props;
+  const { opened, setOpened } = props;
 
   return (
     <Navbar
@@ -23,7 +23,7 @@ export function NavBar(props: Props) {
       width={{ sm: 275, lg: 300 }}
     >
       <Navbar.Section grow mt="md">
-        <NavBarLinks />
+        <NavBarLinks setOpened={setOpened} />
       </Navbar.Section>
 
       <Navbar.Section>

@@ -35,9 +35,8 @@ export function TopBar(props: Props) {
             </MediaQuery>
 
             <Avatar
-              component="a"
               src="https://www.elegantthemes.com/blog/wp-content/uploads/2019/03/000-Pixel-Art-Maker.png"
-              alt="it's me"
+              alt="blog logo"
             />
 
             <Text weight={700}>Brendans Bold Blog</Text>

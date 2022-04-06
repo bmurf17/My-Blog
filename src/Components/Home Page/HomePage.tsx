@@ -7,7 +7,7 @@ export function HomePage() {
     <Grid>
       {tempPosts.map((post) => {
         return (
-          <Grid.Col id={post.id} sm={12} md={6} lg={3}>
+          <Grid.Col key={post.id} sm={12} md={6} lg={3}>
             <BlogCard post={post} />
           </Grid.Col>
         );

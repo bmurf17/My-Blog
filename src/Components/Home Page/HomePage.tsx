@@ -1,45 +1,17 @@
 import { Grid } from "@mantine/core";
+import { tempPosts } from "../../Types/Post";
 import { BlogCard } from "./BlogCard";
 
 export function HomePage() {
   return (
     <Grid>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
-      <Grid.Col sm={12} md={6} lg={3}>
-        <BlogCard />
-      </Grid.Col>
+      {tempPosts.map((post) => {
+        return (
+          <Grid.Col id={post.id} sm={12} md={6} lg={3}>
+            <BlogCard post={post} />
+          </Grid.Col>
+        );
+      })}
     </Grid>
   );
 }

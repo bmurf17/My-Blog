@@ -1,4 +1,4 @@
-import { Card, Center, Image, Stack, Text } from "@mantine/core";
+import { Card, Image, Stack, Text } from "@mantine/core";
 
 export function ProfileSection() {
   return (

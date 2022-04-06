@@ -8,6 +8,7 @@ import { CreatePost } from "./Components/Create Post/CreatePost";
 import { ListsPage } from "./Components/Lists/ListsPage";
 import { FollowingPage } from "./Components/Following/FollowingPage";
 import { UserPage } from "./Components/User Page/UserPage";
+import { ViewBlog } from "./Components/View Post/ViewBlog";
 
 function App() {
   const [opened, setOpened] = useState(false);
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/friends" element={<FollowingPage />} />
                 <Route path="/lists" element={<ListsPage />} />
                 <Route path="/user" element={<UserPage />} />
+                <Route path="/blog/:id" element={<ViewBlog />} />
               </Routes>
             </>
           }

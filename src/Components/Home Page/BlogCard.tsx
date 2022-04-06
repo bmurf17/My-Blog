@@ -7,35 +7,42 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { Post } from "../../Types/Post";
 
-export function BlogCard() {
+interface Props {
+  post: Post;
+}
+
+export function BlogCard(props: Props) {
+  const { post } = props;
+
   const theme = useMantineTheme();
 
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
 
   return (
-    <Card<typeof Link> component={Link} to="/lists" shadow="sm" p="lg">
+    <Card<typeof Link>
+      component={Link}
+      to={"/blog/" + post.id}
+      shadow="sm"
+      p="lg"
+    >
       <Card.Section>
-        <Image
-          src="https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png"
-          height={200}
-          fit="contain"
-          alt="blog picture"
-        />
+        <Image src={post.image} height={200} fit="contain" alt="blog picture" />
       </Card.Section>
 
       <Group
         position="apart"
         style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
       >
-        <Text weight={500}>Blog Title Post</Text>
+        <Text weight={500}>{post.title}</Text>
         <Badge color="pink" variant="light">
-          Blog Post Tags
+          {post.tags[0]}
         </Badge>
       </Group>
       <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-        This is where a preview for the blog post will go
+        {post.preview}
       </Text>
     </Card>
   );

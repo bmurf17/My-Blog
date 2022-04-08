@@ -34,7 +34,11 @@ export function FollowingCard(props: Props) {
       >
         <Text weight={500}>{user.name}</Text>
       </Group>
-      <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+      <Text
+        size="sm"
+        lineClamp={4}
+        style={{ color: secondaryColor, lineHeight: 1.5 }}
+      >
         {user.bio}
       </Text>
     </Card>

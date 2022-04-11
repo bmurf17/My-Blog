@@ -1,24 +1,30 @@
 import { Card, Group, Image, Text, useMantineTheme } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { List } from "../../Types/List";
 
-export function ListCard() {
+interface Props {
+  list: List;
+}
+
+export function ListCard(props: Props) {
+  const { list } = props;
   const theme = useMantineTheme();
   return (
-    <Card<typeof Link> component={Link} to="/userpage" shadow="sm" p="lg">
+    <Card<typeof Link>
+      component={Link}
+      to={"/list/" + list.id}
+      shadow="sm"
+      p="lg"
+    >
       <Card.Section>
-        <Image
-          src="https://media.wired.com/photos/5a0a38c1d07f6824ff44221b/master/w_2560%2Cc_limit/twitterlists-TA.jpg"
-          height={200}
-          fit="contain"
-          alt="blog picture"
-        />
+        <Image src={list.image} height={200} fit="contain" alt="blog picture" />
       </Card.Section>
 
       <Group
         position="apart"
         style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
       >
-        <Text weight={500}>List Title</Text>
+        <Text weight={500}>{list.name}</Text>
       </Group>
     </Card>
   );

@@ -6,11 +6,15 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
+import { UserContext } from "../../App";
 
 export function NavBarUser() {
   const theme = useMantineTheme();
+
+  const user = useContext(UserContext);
 
   return (
     <Box
@@ -48,16 +52,10 @@ export function NavBarUser() {
           }}
         >
           <Group>
-            <Avatar
-              src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-              radius="xl"
-            />
+            <Avatar src={user.profileImg} radius="xl" />
             <Box sx={{ flex: 1 }}>
-              <Text size="sm" weight={500}>
-                Amy Horsefighter
-              </Text>
-              <Text color="dimmed" size="xs">
-                ahorsefighter@gmail.com
+              <Text size="md" weight={500}>
+                {user.name}
               </Text>
             </Box>
 

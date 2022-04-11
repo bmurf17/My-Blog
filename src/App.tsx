@@ -2,7 +2,7 @@ import { HomePage } from "./Components/Home Page/HomePage";
 import { AppShell } from "@mantine/core";
 import { NavBar } from "./Components/Page Layout/NavBar";
 import { TopBar } from "./Components/Page Layout/TopBar";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CreatePost } from "./Components/Create Post/CreatePost";
 import { ListsPage } from "./Components/Lists/ListsPage";
@@ -11,12 +11,16 @@ import { UserPage } from "./Components/User Page/UserPage";
 import { ViewBlog } from "./Components/View Post/ViewBlog";
 import { ViewUser } from "./Components/View User/ViewUser";
 import { ViewList } from "./Components/View List/ViewList";
+import { tempUser } from "./Types/User";
+
+export const UserContext = createContext(tempUser);
 
 function App() {
   const [opened, setOpened] = useState(false);
+  const [user, setUser] = useState(tempUser);
 
   return (
-    <>
+    <UserContext.Provider value={user}>
       <BrowserRouter>
         <AppShell
           padding="md"
@@ -48,7 +52,7 @@ function App() {
           }
         </AppShell>
       </BrowserRouter>
-    </>
+    </UserContext.Provider>
   );
 }
 

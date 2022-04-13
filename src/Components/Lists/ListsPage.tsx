@@ -11,7 +11,7 @@ export function ListsPage() {
 
       {tempList.map((list) => {
         return (
-          <Grid.Col sm={12} md={6} lg={3}>
+          <Grid.Col key={list.id} sm={12} md={6} lg={3}>
             <ListCard list={list} />
           </Grid.Col>
         );

@@ -1,6 +1,8 @@
 import { Text, Image, Space } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { tempPosts } from "../../Types/Post";
+import { AddComment } from "./AddComment";
+import { ViewComment } from "./ViewComment";
 
 export function ViewBlog() {
   const params = useParams();
@@ -21,6 +23,16 @@ export function ViewBlog() {
       <Image src={post?.image} alt="blog picture" />
       <Space h="md" />
       <Text size="md">{post?.content}</Text>
+      <Space h="md" />
+      <AddComment />
+      {post?.comments.map((comment) => {
+        return (
+          <div key={comment.id}>
+            <Space h="sm" />
+            <ViewComment comment={comment} />
+          </div>
+        );
+      })}
     </>
   );
 }

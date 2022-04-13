@@ -1,5 +1,4 @@
 import { Group, Avatar, Text } from "@mantine/core";
-import { Space } from "tabler-icons-react";
 import { Comment } from "../../Types/Comment";
 
 interface Props {

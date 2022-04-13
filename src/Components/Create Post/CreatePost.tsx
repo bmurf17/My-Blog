@@ -8,6 +8,7 @@ import {
   Button,
   Group,
 } from "@mantine/core";
+import { loadUser } from "../../Functions/UserFunctions";
 
 const data = [
   { value: "personal", label: "Personal" },
@@ -28,6 +29,8 @@ export function CreatePost() {
     console.log("Preview: " + previewName);
     console.log("tags: " + tags);
     console.log("blog content: " + blogContent);
+
+    loadUser("enHSg3bM7UwCnGP5BnoA");
   };
 
   return (

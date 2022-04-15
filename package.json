@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/auth": "^0.19.12",
     "@mantine/core": "^4.1.0",
     "@mantine/hooks": "^4.1.0",
     "@mantine/rte": "^4.1.0",

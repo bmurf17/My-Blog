@@ -1,5 +1,4 @@
 import { Comment, tempComment } from "./Comment";
-import { tempUser, User } from "./User";
 
 export interface Post {
   id: string;

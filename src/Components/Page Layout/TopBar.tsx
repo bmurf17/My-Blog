@@ -1,3 +1,4 @@
+import { User as FirebaseUser } from "@firebase/auth";
 import {
   Header,
   Avatar,
@@ -7,16 +8,44 @@ import {
   Burger,
   useMantineTheme,
 } from "@mantine/core";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, provider } from "../../Firebase/env.firebase";
 
 interface Props {
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  user: FirebaseUser | null;
+  setUser: React.Dispatch<React.SetStateAction<FirebaseUser | null>>;
 }
 
 export function TopBar(props: Props) {
-  const { opened, setOpened } = props;
+  const { opened, setOpened, user, setUser } = props;
 
   const theme = useMantineTheme();
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        setUser(user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        console.log("Error Code: " + errorCode);
+        const errorMessage = error.message;
+        console.log("Error message: " + errorMessage);
+        // The email of the user's account used.
+        const email = error.email;
+        console.log("Error Email: " + email);
+      });
+  };
+
+  const signOutOfGoogle = () => {
+    signOut(auth);
+  };
 
   return (
     <Header height={70} p="md">
@@ -43,11 +72,15 @@ export function TopBar(props: Props) {
           </Group>
 
           <Group>
-            <Text weight={700}>Log In</Text>
-
-            <Text align="right" weight={700}>
-              Log Out
-            </Text>
+            {user ? (
+              <Text weight={700} onClick={signOutOfGoogle}>
+                Log Out
+              </Text>
+            ) : (
+              <Text weight={700} onClick={signInWithGoogle}>
+                Log In
+              </Text>
+            )}
           </Group>
         </Group>
       </div>

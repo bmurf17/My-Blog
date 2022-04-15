@@ -13,15 +13,21 @@ import { ViewUser } from "./Components/View User/ViewUser";
 import { ViewList } from "./Components/View List/ViewList";
 import { tempUser } from "./Types/User";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "./Firebase/env.firebase";
+import { auth, db } from "./Firebase/env.firebase";
 import { Post } from "./Types/Post";
+import { onAuthStateChanged, User as FirebaseUser } from "@firebase/auth";
 
 export const UserContext = createContext(tempUser);
 
 function App() {
   const [opened, setOpened] = useState(false);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [user] = useState(tempUser);
   const [posts, setPosts] = useState<Post[]>([]);
+
+  onAuthStateChanged(auth, (currentUser) => {
+    setFirebaseUser(currentUser);
+  });
 
   useEffect(() => {
     const q = query(collection(db, "post"));
@@ -52,7 +58,14 @@ function App() {
         <AppShell
           padding="md"
           navbar={<NavBar opened={opened} setOpened={setOpened} />}
-          header={<TopBar opened={opened} setOpened={setOpened} />}
+          header={
+            <TopBar
+              opened={opened}
+              setOpened={setOpened}
+              user={firebaseUser}
+              setUser={setFirebaseUser}
+            />
+          }
           fixed={true}
           styles={(theme) => ({
             main: {

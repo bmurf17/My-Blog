@@ -10,6 +10,7 @@ export interface Post {
   preview: string;
   comments: Comment[];
   createdUser: User;
+  dateAdded: Date;
 }
 
 export const tempPost: Post = {
@@ -22,6 +23,7 @@ export const tempPost: Post = {
   preview: "This should be a catchy tagline for people to click on your tag",
   comments: [tempComment],
   createdUser: tempUser,
+  dateAdded: new Date(),
 };
 
 export const tempPosts: Post[] = [tempPost];

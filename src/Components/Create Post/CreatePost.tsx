@@ -8,7 +8,9 @@ import {
   Button,
   Group,
 } from "@mantine/core";
-import { loadUser } from "../../Functions/UserFunctions";
+import { Post } from "../../Types/Post";
+import { tempUser } from "../../Types/User";
+import { addPost } from "../../Functions/PostFunctions";
 
 const data = [
   { value: "personal", label: "Personal" },
@@ -30,7 +32,20 @@ export function CreatePost() {
     console.log("tags: " + tags);
     console.log("blog content: " + blogContent);
 
-    loadUser("enHSg3bM7UwCnGP5BnoA");
+    const newPost: Post = {
+      title: postName,
+      comments: [],
+      content: blogContent,
+      createdUser: tempUser,
+      id: "",
+      image:
+        "https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png",
+      preview: previewName,
+      tags: tags,
+      dateAdded: new Date(),
+    };
+
+    addPost(newPost);
   };
 
   return (

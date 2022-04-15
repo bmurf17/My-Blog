@@ -9,7 +9,7 @@ export interface Post {
   image: string;
   preview: string;
   comments: Comment[];
-  createdUser: User;
+  createdUser: string;
   dateAdded: Date;
 }
 
@@ -22,7 +22,7 @@ export const tempPost: Post = {
     "https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png",
   preview: "This should be a catchy tagline for people to click on your tag",
   comments: [tempComment],
-  createdUser: tempUser,
+  createdUser: "enHSg3bM7UwCnGP5BnoA",
   dateAdded: new Date(),
 };
 

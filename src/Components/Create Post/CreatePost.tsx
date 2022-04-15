@@ -9,7 +9,6 @@ import {
   Group,
 } from "@mantine/core";
 import { Post } from "../../Types/Post";
-import { tempUser } from "../../Types/User";
 import { addPost } from "../../Functions/PostFunctions";
 
 const data = [
@@ -36,7 +35,7 @@ export function CreatePost() {
       title: postName,
       comments: [],
       content: blogContent,
-      createdUser: tempUser,
+      createdUser: "enHSg3bM7UwCnGP5BnoA",
       id: "",
       image:
         "https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png",

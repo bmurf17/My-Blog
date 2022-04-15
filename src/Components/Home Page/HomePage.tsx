@@ -1,11 +1,16 @@
 import { Grid } from "@mantine/core";
-import { tempPosts } from "../../Types/Post";
+import { Post } from "../../Types/Post";
 import { BlogCard } from "./BlogCard";
 
-export function HomePage() {
+interface Props {
+  posts: Post[];
+}
+
+export function HomePage(props: Props) {
+  const { posts } = props;
   return (
     <Grid>
-      {tempPosts.map((post) => {
+      {posts.map((post) => {
         return (
           <Grid.Col key={post.id} sm={12} md={6} lg={3}>
             <BlogCard post={post} />

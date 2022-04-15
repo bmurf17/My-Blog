@@ -1,5 +1,6 @@
 import { Grid } from "@mantine/core";
 import { useParams } from "react-router-dom";
+import { tempPosts } from "../../Types/Post";
 import { tempUser, tempUsers } from "../../Types/User";
 import { HomePage } from "../Home Page/HomePage";
 import { ProfileSection } from "../User Page/ProfileSection";
@@ -18,7 +19,7 @@ export function ViewUser() {
         <ProfileSection user={user || tempUser} />
       </Grid.Col>
       <Grid.Col span={9}>
-        <HomePage />
+        <HomePage posts={user?.posts || tempPosts} />
       </Grid.Col>
     </Grid>
   );

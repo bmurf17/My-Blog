@@ -11,8 +11,14 @@ import { UserPage } from "./Components/User Page/UserPage";
 import { ViewBlog } from "./Components/View Post/ViewBlog";
 import { ViewUser } from "./Components/View User/ViewUser";
 import { ViewList } from "./Components/View List/ViewList";
-import { tempUser } from "./Types/User";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { tempUser, User } from "./Types/User";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { auth, db } from "./Firebase/env.firebase";
 import { Post } from "./Types/Post";
 import { onAuthStateChanged, User as FirebaseUser } from "@firebase/auth";
@@ -22,12 +28,41 @@ export const UserContext = createContext(tempUser);
 function App() {
   const [opened, setOpened] = useState(false);
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
-  const [user] = useState(tempUser);
+  const [user, setUser] = useState(tempUser);
   const [posts, setPosts] = useState<Post[]>([]);
 
   onAuthStateChanged(auth, (currentUser) => {
     setFirebaseUser(currentUser);
   });
+
+  useEffect(() => {
+    async function logInSiteUser() {
+      if (firebaseUser) {
+        const q = query(
+          collection(db, "user"),
+          where("authUID", "==", firebaseUser?.uid)
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.docs.map((doc) => {
+          const temp: User = {
+            bio: doc.data().bio,
+            following: doc.data().following,
+            id: doc.id,
+            name: doc.data().name,
+            posts: doc.data().posts,
+            profileImg: doc.data().profileImg,
+          };
+          setUser(temp);
+          return temp;
+        });
+      } else {
+        setUser(tempUser);
+      }
+    }
+    logInSiteUser();
+  }, [firebaseUser]);
 
   useEffect(() => {
     const q = query(collection(db, "post"));

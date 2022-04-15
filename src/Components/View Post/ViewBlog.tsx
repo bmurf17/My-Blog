@@ -24,14 +24,11 @@ export function ViewBlog(props: Props) {
 
   useEffect(() => {
     async function getUserName() {
-      console.log(post?.createdUser);
-
       const docRef = doc(db, "user", post?.createdUser || "");
 
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().name);
         setUser(docSnap.data().name);
       } else {
         // doc.data() will be undefined in this case

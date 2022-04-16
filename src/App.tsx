@@ -30,6 +30,7 @@ function App() {
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [user, setUser] = useState(tempUser);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [following, setFollowing] = useState<User[]>([]);
 
   onAuthStateChanged(auth, (currentUser) => {
     setFirebaseUser(currentUser);
@@ -53,6 +54,7 @@ function App() {
             name: doc.data().name,
             posts: doc.data().posts,
             profileImg: doc.data().profileImg,
+            authUID: doc.data().authUID,
           };
           setUser(temp);
           return temp;
@@ -64,6 +66,32 @@ function App() {
     logInSiteUser();
   }, [firebaseUser]);
 
+  //useEffect for following stuff
+  useEffect(() => {
+    const loadTheUsers = async () => {
+      const postCollectionRef = collection(db, "user");
+
+      const q = query(postCollectionRef, where("authUID", "!=", user.authUID));
+
+      const querySnapshot = await getDocs(q);
+
+      const listOfUsers: User[] = querySnapshot.docs.map((doc) => {
+        return {
+          bio: doc.data().bio,
+          following: doc.data().following,
+          id: doc.id,
+          name: doc.data().name,
+          posts: doc.data().posts,
+          profileImg: doc.data().profileImg,
+          authUID: doc.data().authUID,
+        };
+      });
+      setFollowing(listOfUsers);
+    };
+    loadTheUsers();
+  }, [user.authUID]);
+
+  // useEffect for post stuff
   useEffect(() => {
     const q = query(collection(db, "post"));
 
@@ -116,11 +144,17 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage posts={posts} />} />
                 <Route path="/create" element={<CreatePost />} />
-                <Route path="/friends" element={<FollowingPage />} />
+                <Route
+                  path="/friends"
+                  element={<FollowingPage followingUsers={following} />}
+                />
                 <Route path="/lists" element={<ListsPage />} />
                 <Route path="/user" element={<UserPage />} />
                 <Route path="/blog/:id" element={<ViewBlog posts={posts} />} />
-                <Route path="/user/:id" element={<ViewUser />} />
+                <Route
+                  path="/user/:id"
+                  element={<ViewUser followingUsers={following} />}
+                />
                 <Route path="/list/:id" element={<ViewList />} />
               </Routes>
             </>

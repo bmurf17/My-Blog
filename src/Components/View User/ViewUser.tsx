@@ -1,15 +1,20 @@
 import { Grid } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { tempPosts } from "../../Types/Post";
-import { tempUser, tempUsers } from "../../Types/User";
+import { tempUser, tempUsers, User } from "../../Types/User";
 import { HomePage } from "../Home Page/HomePage";
 import { ProfileSection } from "../User Page/ProfileSection";
 
-export function ViewUser() {
+interface Props {
+  followingUsers: User[];
+}
+
+export function ViewUser(props: Props) {
+  const { followingUsers } = props;
   const params = useParams();
   const id = params.id;
 
-  const user = tempUsers.find((temp) => {
+  const user = followingUsers.find((temp) => {
     return temp.id === id;
   });
 

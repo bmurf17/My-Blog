@@ -7,6 +7,7 @@ export interface User {
   bio: string;
   posts: Post[];
   following: User[];
+  authUID: string;
 }
 
 export const tempUser: User = {
@@ -17,6 +18,7 @@ export const tempUser: User = {
   profileImg:
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   following: [],
+  authUID: "",
 };
 
 export const tempUsers: User[] = [tempUser];

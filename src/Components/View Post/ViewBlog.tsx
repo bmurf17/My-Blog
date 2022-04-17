@@ -1,4 +1,5 @@
 import { Text, Image, Space } from "@mantine/core";
+import RichTextEditor from "@mantine/rte";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -49,7 +50,13 @@ export function ViewBlog(props: Props) {
       </Text>
       <Image src={post?.image} alt="blog picture" />
       <Space h="md" />
-      <Text size="md">{post?.content}</Text>
+      <RichTextEditor
+        readOnly
+        value={post?.content || ""}
+        onChange={function (value: string): void {
+          console.log("This should never happen since it is read only");
+        }}
+      />
       <Space h="md" />
       <AddComment />
       {post?.comments.map((comment) => {

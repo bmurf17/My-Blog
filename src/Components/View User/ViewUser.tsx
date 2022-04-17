@@ -1,7 +1,7 @@
 import { Grid } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { tempPosts } from "../../Types/Post";
-import { tempUser, tempUsers, User } from "../../Types/User";
+import { tempUser, User } from "../../Types/User";
 import { HomePage } from "../Home Page/HomePage";
 import { ProfileSection } from "../User Page/ProfileSection";
 

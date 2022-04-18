@@ -12,7 +12,7 @@ export function UserPage() {
         <ProfileSection user={user} />
       </Grid.Col>
       <Grid.Col span={9}>
-        <UpdateProfileSection />
+        <UpdateProfileSection user={user} />
       </Grid.Col>
     </Grid>
   );

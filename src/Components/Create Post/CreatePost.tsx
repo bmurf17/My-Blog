@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RichTextEditor } from "@mantine/rte";
 import {
   TextInput,
@@ -13,6 +13,7 @@ import { Post } from "../../Types/Post";
 import { addPost } from "../../Functions/PostFunctions";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../Firebase/env.firebase";
+import { UserContext } from "../../App";
 
 const data = [
   { value: "personal", label: "Personal" },
@@ -30,12 +31,14 @@ export function CreatePost() {
   );
   const [tags, setTags] = useState<string[]>([]);
 
+  const user = useContext(UserContext);
+
   const onSubmit = () => {
     const newPost: Post = {
       title: postName,
       comments: [],
       content: blogContent,
-      createdUser: "enHSg3bM7UwCnGP5BnoA",
+      createdUser: user.id,
       id: "",
       image: img,
       preview: previewName,
@@ -103,7 +106,7 @@ export function CreatePost() {
       />
       <Space h="md" />
       <Text size="xl">Upload an Image</Text>
-      <div style={{ width: 240, marginLeft: "auto", marginRight: "auto" }}>
+      <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
         <Image src={img} />
       </div>
       <Button onChange={handleChange} component="label">

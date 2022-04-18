@@ -48,7 +48,9 @@ export function ViewBlog(props: Props) {
       <Text size="md" align="center">
         By {userName}
       </Text>
-      <Image src={post?.image} alt="blog picture" />
+      <div style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}>
+        <Image src={post?.image} alt="blog picture" />
+      </div>
       <Space h="md" />
       <RichTextEditor
         readOnly

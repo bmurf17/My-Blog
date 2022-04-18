@@ -1,13 +1,15 @@
 import { Grid } from "@mantine/core";
-import { tempUser } from "../../Types/User";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 import { ProfileSection } from "./ProfileSection";
 import { UpdateProfileSection } from "./UpdateProfileSection";
 
 export function UserPage() {
+  const user = useContext(UserContext);
   return (
     <Grid>
       <Grid.Col span={3}>
-        <ProfileSection user={tempUser} />
+        <ProfileSection user={user} />
       </Grid.Col>
       <Grid.Col span={9}>
         <UpdateProfileSection />

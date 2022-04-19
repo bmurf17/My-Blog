@@ -11,7 +11,13 @@ import { Link } from "react-router-dom";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
 import { UserContext } from "../../App";
 
-export function NavBarUser() {
+interface Props {
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function NavBarUser(props: Props) {
+  const { setOpened } = props;
+
   const theme = useMantineTheme();
 
   const user = useContext(UserContext);
@@ -51,7 +57,11 @@ export function NavBarUser() {
             color: "#2d6886",
           }}
         >
-          <Group>
+          <Group
+            onClick={() => {
+              setOpened(false);
+            }}
+          >
             <Avatar src={user.profileImg} radius="xl" />
             <Box sx={{ flex: 1 }}>
               <Text size="md" weight={500}>

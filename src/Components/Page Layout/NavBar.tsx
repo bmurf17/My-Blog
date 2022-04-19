@@ -27,7 +27,7 @@ export function NavBar(props: Props) {
       </Navbar.Section>
 
       <Navbar.Section>
-        <NavBarUser />
+        <NavBarUser setOpened={setOpened} />
       </Navbar.Section>
     </Navbar>
   );

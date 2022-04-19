@@ -1,4 +1,14 @@
-import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { User as FirebaseUser } from "@firebase/auth";
+import {
+  getDoc,
+  doc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+} from "firebase/firestore";
 import { db } from "../Firebase/env.firebase";
 import { User } from "../Types/User";
 
@@ -16,7 +26,6 @@ export async function loadUser(uid: string) {
 }
 
 export async function updateUserProfile(user: User) {
-  console.log();
   const newFields = {
     bio: user.bio,
     name: user.name,
@@ -26,4 +35,25 @@ export async function updateUserProfile(user: User) {
   const userDoc = doc(db, "user", user.id);
 
   await updateDoc(userDoc, newFields);
+}
+
+export async function addUserToDB(user: FirebaseUser) {
+  const usersCollectionRef = collection(db, "user");
+
+  const q = query(usersCollectionRef, where("authUID", "==", user.uid));
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.size === 0) {
+    const theUser = {
+      authUID: user.uid,
+      name: user.displayName,
+      profileImg: user.photoURL,
+      bio: "Please enter a bio when you get a chance",
+      following: [],
+      posts: [],
+    };
+
+    await addDoc(usersCollectionRef, theUser);
+  }
 }

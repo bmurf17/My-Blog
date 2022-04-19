@@ -22,6 +22,7 @@ import {
 import { auth, db } from "./Firebase/env.firebase";
 import { Post } from "./Types/Post";
 import { onAuthStateChanged, User as FirebaseUser } from "@firebase/auth";
+import { addUserToDB } from "./Functions/UserFunctions";
 
 export const UserContext = createContext(tempUser);
 
@@ -59,12 +60,14 @@ function App() {
           setUser(temp);
           return temp;
         });
+
+        addUserToDB(firebaseUser);
       } else {
         setUser(tempUser);
       }
     }
     logInSiteUser();
-  }, [firebaseUser]);
+  }, [firebaseUser, user]);
 
   //useEffect for following stuff
   useEffect(() => {

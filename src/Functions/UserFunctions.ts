@@ -57,3 +57,23 @@ export async function addUserToDB(user: FirebaseUser) {
     await addDoc(usersCollectionRef, theUser);
   }
 }
+
+export async function removePostFromArray(userID: string, postID: string) {
+  const userDoc = doc(db, "user", userID);
+
+  const docSnap = await getDoc(userDoc);
+
+  let newFields = {
+    posts: [],
+  };
+
+  if (docSnap.exists()) {
+    let newPosts = docSnap.data().posts;
+    newPosts = newPosts.filter((item: any) => item !== postID);
+    newFields.posts = newPosts;
+    await updateDoc(userDoc, newFields);
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("Failed to delete post");
+  }
+}

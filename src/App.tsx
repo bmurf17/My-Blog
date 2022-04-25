@@ -119,9 +119,6 @@ function App() {
       setPosts(posts);
     });
   }, []);
-
-  console.log("App.tsx render");
-
   return (
     <UserContext.Provider value={user}>
       <BrowserRouter>

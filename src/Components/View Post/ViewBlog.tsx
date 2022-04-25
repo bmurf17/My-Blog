@@ -1,12 +1,23 @@
-import { Text, Image, Space } from "@mantine/core";
+import {
+  Text,
+  Image,
+  Space,
+  ActionIcon,
+  Group,
+  Tooltip,
+  Button,
+} from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { UserContext } from "../../App";
 import { db } from "../../Firebase/env.firebase";
-import { Post } from "../../Types/Post";
+import { Post, tempPost } from "../../Types/Post";
 import { AddComment } from "./AddComment";
 import { ViewComment } from "./ViewComment";
+import { Trash } from "tabler-icons-react";
+import { deletePost } from "../../Functions/PostFunctions";
 
 interface Props {
   posts: Post[];
@@ -17,6 +28,8 @@ export function ViewBlog(props: Props) {
 
   const params = useParams();
   const id = params.id;
+
+  const user = useContext(UserContext);
   const [userName, setUser] = useState("");
 
   const post = posts.find((temp) => {
@@ -38,16 +51,34 @@ export function ViewBlog(props: Props) {
     }
 
     getUserName();
-  });
+  }, [post?.createdUser]);
+
+  const handleDelete = () => {
+    deletePost(post || tempPost);
+  };
 
   return (
     <>
       <Text size="xl" align="center" weight={"bold"}>
         {post?.title}
       </Text>
-      <Text size="md" align="center">
-        By {userName}
-      </Text>
+      <Group position="center">
+        <Text size="md" align="center">
+          By {userName}
+        </Text>
+        {user.id === post?.createdUser ? (
+          <Tooltip label="This will delete your post">
+            {/* <ActionIcon<typeof Link> component={Link} to="/"> */}
+            <Button<typeof Link> component={Link} to="/" onClick={handleDelete}>
+              Delete
+            </Button>
+            {/* </ActionIcon> */}
+          </Tooltip>
+        ) : (
+          <> </>
+        )}
+      </Group>
+
       <div style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}>
         <Image src={post?.image} alt="blog picture" />
       </div>

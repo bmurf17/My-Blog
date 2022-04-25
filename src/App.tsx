@@ -34,7 +34,9 @@ function App() {
   const [following, setFollowing] = useState<User[]>([]);
 
   onAuthStateChanged(auth, (currentUser) => {
-    setFirebaseUser(currentUser);
+    if (currentUser?.uid !== firebaseUser?.uid) {
+      setFirebaseUser(currentUser);
+    }
   });
 
   useEffect(() => {
@@ -67,7 +69,7 @@ function App() {
       }
     }
     logInSiteUser();
-  }, [firebaseUser, user]);
+  }, [firebaseUser]);
 
   //useEffect for following stuff
   useEffect(() => {
@@ -117,6 +119,8 @@ function App() {
       setPosts(posts);
     });
   }, []);
+
+  console.log("App.tsx render");
 
   return (
     <UserContext.Provider value={user}>

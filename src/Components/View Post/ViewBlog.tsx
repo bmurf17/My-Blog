@@ -1,22 +1,21 @@
-import {
-  Text,
-  Image,
-  Space,
-  ActionIcon,
-  Group,
-  Tooltip,
-  Button,
-} from "@mantine/core";
+import { Text, Image, Space, Group, Tooltip, Button } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
 import { db } from "../../Firebase/env.firebase";
 import { Post, tempPost } from "../../Types/Post";
 import { AddComment } from "./AddComment";
+import { Comment } from "../../Types/Comment";
 import { ViewComment } from "./ViewComment";
-import { Trash } from "tabler-icons-react";
 import { deletePost } from "../../Functions/PostFunctions";
 
 interface Props {
@@ -31,6 +30,7 @@ export function ViewBlog(props: Props) {
 
   const user = useContext(UserContext);
   const [userName, setUser] = useState("");
+  const [comments, setComments] = useState<Comment[]>([]);
 
   const post = posts.find((temp) => {
     return temp.id === id;
@@ -53,6 +53,30 @@ export function ViewBlog(props: Props) {
     getUserName();
   }, [post?.createdUser]);
 
+  useEffect(() => {
+    async function getComments() {
+      const commentCollectionRef = collection(db, "comment");
+
+      const q = query(commentCollectionRef, where("post", "==", post?.id));
+
+      const querySnapshot = await getDocs(q);
+
+      const listOfComments: Comment[] = querySnapshot.docs.map((doc) => {
+        const temp: Comment = {
+          id: doc.id,
+          content: doc.data().content,
+          post: doc.data().post,
+          user: doc.data().user,
+        };
+
+        return temp;
+      });
+      setComments(listOfComments);
+    }
+
+    getComments();
+  }, [post?.id]);
+
   const handleDelete = () => {
     deletePost(post || tempPost);
   };
@@ -68,11 +92,9 @@ export function ViewBlog(props: Props) {
         </Text>
         {user.id === post?.createdUser ? (
           <Tooltip label="This will delete your post">
-            {/* <ActionIcon<typeof Link> component={Link} to="/"> */}
             <Button<typeof Link> component={Link} to="/" onClick={handleDelete}>
               Delete
             </Button>
-            {/* </ActionIcon> */}
           </Tooltip>
         ) : (
           <> </>
@@ -91,8 +113,8 @@ export function ViewBlog(props: Props) {
         }}
       />
       <Space h="md" />
-      <AddComment />
-      {post?.comments.map((comment) => {
+      <AddComment postID={post?.id || ""} />
+      {comments.map((comment) => {
         return (
           <div key={comment.id}>
             <Space h="sm" />

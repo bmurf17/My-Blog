@@ -1,9 +1,21 @@
 import { Avatar, Button, Group, Space, Textarea } from "@mantine/core";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../App";
+import { addComment } from "../../Functions/CommentFunctions";
 
-export function AddComment() {
+interface Props {
+  postID: string;
+}
+
+export function AddComment(props: Props) {
+  const { postID } = props;
+  const [comment, setComment] = useState("");
+
   const user = useContext(UserContext);
+
+  const handleComment = () => {
+    addComment(comment, postID, user.id);
+  };
   return (
     <>
       <Group>
@@ -12,12 +24,16 @@ export function AddComment() {
           style={{ width: "90%" }}
           placeholder="Your comment"
           label="Your comment"
+          onChange={(e) => {
+            e.preventDefault();
+            setComment(e.target.value);
+          }}
           required
         />
       </Group>
       <Space h="sm" />
       <Group position="right">
-        <Button>Submit</Button>
+        <Button onClick={handleComment}>Submit</Button>
       </Group>
     </>
   );

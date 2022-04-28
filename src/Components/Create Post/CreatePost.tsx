@@ -50,7 +50,6 @@ export function CreatePost() {
   };
 
   const handleChange = async (e: any) => {
-    console.log(e.target);
     if (e.target.files) {
       const storageRef = await ref(storage, `files/${e.target.files[0].name}`);
       const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);

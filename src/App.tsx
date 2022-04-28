@@ -23,6 +23,7 @@ import { auth, db } from "./Firebase/env.firebase";
 import { Post } from "./Types/Post";
 import { onAuthStateChanged, User as FirebaseUser } from "@firebase/auth";
 import { addUserToDB } from "./Functions/UserFunctions";
+import { List } from "./Types/List";
 
 export const UserContext = createContext(tempUser);
 
@@ -32,6 +33,7 @@ function App() {
   const [user, setUser] = useState(tempUser);
   const [posts, setPosts] = useState<Post[]>([]);
   const [following, setFollowing] = useState<User[]>([]);
+  const [lists, setList] = useState<List[]>([]);
 
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser?.uid !== firebaseUser?.uid) {
@@ -96,6 +98,26 @@ function App() {
     loadTheUsers();
   }, [user.authUID]);
 
+  //useEffect list stuff
+  useEffect(() => {
+    const q = query(collection(db, "list"));
+
+    onSnapshot(q, (snapshot: any) => {
+      let temp: List[] = [];
+      snapshot.docs.forEach((doc: any) => {
+        const list: List = {
+          id: doc.id,
+          image: doc.data().image,
+          name: doc.data().name,
+          owningUser: doc.data().owningUser,
+          posts: doc.data().posts,
+        };
+        temp.push(list);
+      });
+      setList(temp);
+    });
+  }, []);
+
   // useEffect for post stuff
   useEffect(() => {
     const q = query(collection(db, "post"));
@@ -152,7 +174,7 @@ function App() {
                   path="/friends"
                   element={<FollowingPage followingUsers={following} />}
                 />
-                <Route path="/lists" element={<ListsPage />} />
+                <Route path="/lists" element={<ListsPage lists={lists} />} />
                 <Route path="/user" element={<UserPage />} />
                 <Route path="/blog/:id" element={<ViewBlog posts={posts} />} />
                 <Route

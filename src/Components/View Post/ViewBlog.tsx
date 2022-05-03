@@ -5,7 +5,9 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
+  Unsubscribe,
   where,
 } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
@@ -31,6 +33,7 @@ export function ViewBlog(props: Props) {
   const user = useContext(UserContext);
   const [userName, setUser] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
+  const [unsub, setUnsub] = useState<Unsubscribe>();
 
   const post = posts.find((temp) => {
     return temp.id === id;
@@ -57,21 +60,20 @@ export function ViewBlog(props: Props) {
     async function getComments() {
       const commentCollectionRef = collection(db, "comment");
 
-      const q = query(commentCollectionRef, where("post", "==", post?.id));
-
-      const querySnapshot = await getDocs(q);
-
-      const listOfComments: Comment[] = querySnapshot.docs.map((doc) => {
-        const temp: Comment = {
-          id: doc.id,
-          content: doc.data().content,
-          post: doc.data().post,
-          user: doc.data().user,
-        };
-
-        return temp;
+      onSnapshot(collection(db, "comment"), async () => {
+        const q = query(commentCollectionRef, where("post", "==", post?.id));
+        const theBooks = await getDocs(q);
+        const listOfComments: Comment[] = theBooks.docs.map((doc) => {
+          const temp: Comment = {
+            id: doc.id,
+            content: doc.data().content,
+            post: doc.data().post,
+            user: doc.data().user,
+          };
+          return temp;
+        });
+        setComments(listOfComments);
       });
-      setComments(listOfComments);
     }
 
     getComments();

@@ -1,5 +1,3 @@
-import { tempUser, User } from "./User";
-
 export interface Comment {
   id: string;
   user: string;

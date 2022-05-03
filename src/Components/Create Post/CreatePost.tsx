@@ -9,6 +9,8 @@ import {
   Group,
   Image,
 } from "@mantine/core";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Post } from "../../Types/Post";
 import { addPost } from "../../Functions/PostFunctions";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -47,6 +49,15 @@ export function CreatePost() {
     };
 
     addPost(newPost);
+
+    setBlogContent("");
+    setPostName("");
+    setPreviewName("");
+    setImg(
+      "https://www.blogtyrant.com/wp-content/uploads/2017/02/how-to-write-a-good-blog-post.png"
+    );
+    setTags([]);
+    toast.success("Your Post Was Added!");
   };
 
   const handleChange = async (e: any) => {
@@ -79,6 +90,7 @@ export function CreatePost() {
           e.preventDefault();
           setPostName(e.target.value);
         }}
+        value={postName}
         required
       />
       <Space h="md" />
@@ -90,6 +102,7 @@ export function CreatePost() {
           e.preventDefault();
           setPreviewName(e.target.value);
         }}
+        value={previewName}
         required
       />
       <Space h="md" />
@@ -121,6 +134,7 @@ export function CreatePost() {
           Submit
         </Button>
       </Group>
+      <ToastContainer />
     </form>
   );
 }
